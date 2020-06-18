@@ -1,12 +1,12 @@
 {
-  "name": "gulp-first-project",
+  "name": "gulp-babel",
   "version": "1.0.0",
-  "description": "My first Gulp",
+  "description": "Gulp via babel",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Kopfjager",
+  "author": "RomanKopfjager",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.2",
