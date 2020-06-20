@@ -1,4 +1,5 @@
 const gulp 						= require('gulp'),
+			exec 						= require('child_process').exec,
 			sass 						= require('gulp-sass'),
 			autoprefix 			= require('gulp-autoprefixer'),
 			plumber	 				= require('gulp-plumber'),
@@ -34,7 +35,7 @@ gulp.task('sass', async function(){
 			.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
 			.pipe(sass())
 			.pipe(cssnano())
-			.pipe(autoprefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}))
+			// .pipe(autoprefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}))
 			.pipe(gulp.dest(path.style.css))
 			.pipe(browserSync.reload({stream: true}))
 });
@@ -79,7 +80,7 @@ gulp.task('js-libs', async function () {
 // Css libs compilation to libs.min.js in app/js
 gulp.task('js', async function () {
 	return gulp.src([
-		'app/js/index.js',
+		'app/js/*.js',
 	])
 			.pipe(browserSync.reload({stream: true}));
 });
@@ -102,7 +103,7 @@ gulp.task('watch', async function(){
 	gulp.watch('app/jade/**/*.jade', gulp.series('jade'));
 	gulp.watch('app/libs/**/*.css', gulp.series('css-libs'));
 	gulp.watch('app/libs/**/*.js', gulp.series('js-libs'));
-	gulp.watch('app/js/index.js', gulp.series('js'));
+	gulp.watch('app/js/*.js', gulp.series('js'));
 	gulp.watch('app/*.html');
 });
 
@@ -147,5 +148,13 @@ gulp.task('build', gulp.series('img', 'sass', 'jade', 'css-libs', 'js-libs'), as
 gulp.task('clear', function(callback) {
 	return cache.clearAll();
 });
+
+gulp.task('server', function (cb) {
+	exec('node server/app.js', function (err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
+})
 
 gulp.task('default', gulp.series('browser-sync', 'sass', 'jade', 'css-libs', 'js-libs', 'watch'));

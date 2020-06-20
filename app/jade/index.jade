@@ -9,35 +9,49 @@ body
 				.recipe__list
 					mixin recipeItem(name, counter)
 						.recipe__list__item(class= counter)#recipe-22
-							.recipe__list__item__wrapper
-								.recipe__list__item__title
-									.recipe__list__item__title__text
+							.recipe__list__item__inner
+								.recipe__list__item__bg
+								.recipe__list__item__wrapper
+									.recipe__list__item__title
+										.recipe__list__item__title__text
+											h2= name
+										.recipe__list__item__title__buttons
+											.recipe__list__item__title__buttons__edit
+												button Edit
+											.recipe__list__item__title__buttons__remove#22
+												button Remove
+									.recipe__list__item__content
 										h2= name
-									.recipe__list__item__title__buttons
-										.recipe__list__item__title__buttons__edit
-											p Edit
-										.recipe__list__item__title__buttons__remove#22
-											p Remove
-								.recipe__list__item__content
-									h2= name
-									ul
-										li text
-										li text
-										li text
-					+recipeItem('Recipe one', 'one')
-					+recipeItem('Recipe two', 'two')
-					+recipeItem('Recipe three', 'three')
-					+recipeItem('Recipe four', 'four')
-					+recipeItem('Recipe five', 'five')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
-					+recipeItem('Recipe six', 'six')
+										ul
+											li text
+											li text
+											li text
+			.recipe__edit
+				.recipe__edit__wrapper
+			.recipe__add
+				.container
+					.recipe__add__wrapper
+						.title
+							.title__text
+								h2 Add new recipe
+							.general__button
+								button Close
+						form.form
+							.form__input__img
+								label
+									span Choose an image
+									img(src="img/empty.jpg" alt="Choose image")
+									input(type="file" name="image")
+							.form__inputs
+								.form__input
+									input#name(type="text" name="name")
+									label(for="name") Name
+								.form__input
+									textarea#description(name="description")
+									label(for="description") Description
+								.ingredients
+									.form__input
+										input#ingredients__add(type="text" name="ingredients__add")
+										label(for="ingredients__add") Add new ingredient
+										button.ingredient__button.ingredients__add Add
 		include includes/footer

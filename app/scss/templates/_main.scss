@@ -1,21 +1,28 @@
-*, *:before, *:after {
-  box-sizing: border-box;
+$scrollWidth: 8px;
+::-webkit-scrollbar {
+  width: $scrollWidth;
 }
 
-img {
-  height: auto;
-  max-width: 100%;
-  object-fit: cover;
+::-webkit-scrollbar-track {
+  background: $color-white;
 }
 
+::-webkit-scrollbar-thumb {
+  background: $color-purple
+}
 body {
   font-family: 'HKGrotesk', Sans-Serif;
   background-size: cover;
   background-image: url(../img/picture_two.jpg);
   background-repeat: no-repeat;
-  &.scroll{
-    .header{
-      padding: 0 15px;
+  &.modal_active{
+    overflow: hidden;
+    .header .wrapper,
+    .page_wrapper{
+      padding-right: $scrollWidth;
+    }
+    .recipe__add{
+      right: 8px;
     }
   }
 }
@@ -42,27 +49,12 @@ p {
   min-height: 100vh;
 }
 
-.header {
-  position: relative;
-  z-index: 9999;
-  width: 100%;
-  background-color: $purple-color;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  transition: all .2s ease-in-out;
-
-  .header__img {
-    width: 70px;
-    height: 20px;
-    transform: rotate(45deg);
-  }
-}
-
 .main {
-  color: $white-color;
-  margin: 5vh auto;
+  position: relative;
+  z-index: 1;
   width: 100%;
+  color: $color-white;
+  margin-top: 75px;
 }
 
 .container {
@@ -76,209 +68,84 @@ p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
 }
 
-.recipe__list {
-  width: 100%;
-  display: grid;
-  grid-gap: 50px;
-  //grid-auto-rows: 100px;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-}
-@keyframes bgAnimate {
-  0%{
-    transform: scale(1) translateX(0);
-  }
-  50%{
-    transform: scale(1.1) translateX(1%);
-  }
-  100%{
-    transform: scale(1) translateX(0);
-  }
-}
-.recipe__list__item{
-  position: relative;
-  z-index: 1;
-  padding: 15px;
-  overflow: hidden;
-  &:hover{
-    .recipe__list__item__title__buttons__edit,
-    .recipe__list__item__title__buttons__remove{
-      transform: translateY(0);
+
+
+.general__button {
+  button {
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px 30px;
+    overflow: hidden;
+    color: $color-white;
+    border: 1px solid $color-white;
+    background-color: transparent;
+    transition: font .4s ease-in-out, color .4s ease-in-out;
+
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: -100%;
+      height: 100%;
+      width: 100%;
+      background-color: $color-white;
+      transition: all .4s ease-in-out;
     }
-  }
-  &:before{
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    animation-name: bgAnimate;
-    animation-iteration-count: infinite;
-  }
-  &.one{
-    &:before{
-      animation-duration: 35s;
-      background-image: url(../img/breack_fast.png);
-    }
-  }
-  &.two{
-    &:before{
-      animation-duration: 40s;
-      background-image: url(../img/snack.png);
-    }
-  }
-  &.three{
-    &:before{
-      animation-duration: 50s;
-      background-image: url(../img/dinner.png);
-    }
-  }
-  &.four{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/lunch.png);
-    }
-  }
-  &.five{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/dinner_2.png);
-    }
-  }
-  &.six{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/six.png);
-    }
-  }
-  &.seven{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/seven.png);
-    }
-  }
-  &.gym{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/gym.png);
-    }
-  }
-  &.gym2{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/gym2.png);
-    }
-  }
-  &.gym3{
-    &:before{
-      animation-duration: 45s;
-      background-image: url(../img/gym3.png);
+
+    &:hover {
+      color: $color-purple;
+
+      &:before {
+        right: 0;
+      }
     }
   }
 }
 
-.recipe__list__item__wrapper{
-  padding: 15px;
-  height: 100%;
-  //background-color: rgba(0, 0, 0, 0.7);
-  background-color:rgba(98, 72, 124, .8);
-}
-.recipe__list__item__title{
+.title{
   position: relative;
   z-index: 1;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: $fontSizeMedium;
-  line-height: 1;
-  margin-bottom: 15px;
-  padding-bottom: 5px;
-  border-bottom: 2px solid rgba(255, 255, 255, .8);
-}
-.recipe__list__item__title__buttons{
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  overflow-y: hidden;
-}
-.recipe__list__item__title__buttons__edit,
-.recipe__list__item__title__buttons__remove{
-  position: relative;
-  z-index: 1;
-  padding: 5px;
-  cursor: pointer;
-  transition: transform .4s ease-in-out;
-  transform: translateY(calc(100% + 5px));
+  max-width: 60vw;
+  min-width: 320px;
+  padding: 15px 0 15px 15px;
+  background-color: $color-white;
+  border-bottom: 2px solid $color-purple;
   &:before{
     content: '';
     position: absolute;
-    z-index: -1;
-    top: 2px;
-    left: 2px;
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
-    transform: scale(0);
-    background-color: rgba(255, 255, 255, .1);
-    transition: transform .4s ease-in-out;
+    z-index: 1;
+    top: 0;
+    right: -100vw;
+    height: 100%;
+    width: 100vw;
+    background-color: $color-white;
   }
-}
-.recipe__list__item__title__buttons__edit{
-  margin-right: 5px;
-  background-color: rgba(15, 147, 15, 1);
-  transition-delay: .1s;
-  &:hover{
-    &:before{
-      transform: scale(1);
+  .title__text{
+    h2{
+      color: $color-black;
+      font-weight: bold;
     }
   }
-}
-.recipe__list__item__title__buttons__remove{
-  background-color: rgba(188, 0, 0, 1);
-  &:hover{
-    &:before{
-      transform: scale(1);
-    }
-  }
-}
-.recipe__list__item__content{
-  &:not(:last-child){
-    margin-bottom: 15px;
-  }
-  &.count{
-    li{
-      list-style-type: decimal;
-    }
-  }
-  li{
-    margin-left: 20px;
-    margin-bottom: 15px;
-    &:last-child{
-      margin-bottom: 10px;
-    }
-  }
-  a{
-    text-decoration: underline;
-  }
-  h2{
-    font-size: 2rem;
-    line-height: 2;
-  }
-  ul, ol{
-    padding-left: 20px;
-  }
-  li{
-    line-height: 2;
-    padding-left: 20px;
-    margin-bottom: 15px;
-    &:last-child{
-      margin-bottom: 10px;
+  .general__button{
+    button{
+      color: $color-purple;
+      border-color: $color-purple;
+      &:hover{
+        color: $color-white;
+      }
+      &:before{
+        background-color: $color-purple;
+      }
     }
   }
 }
