@@ -97,7 +97,6 @@ function masonry() {
     colHeights.push(0);
   }
   for (let i = 0; i < recipeWrapper.children.length; ++i) {
-    console.log(recipeWrapper.children[i]);
     let order = (i + 1) % colCount || colCount;
     let width = recipeWrapper.offsetWidth / colCount;
     recipeWrapper.children[i].style.order = order;
@@ -310,14 +309,6 @@ function editRecipeItem(getRecipe) {
   let data = new Recipe();
   let item = data.getRecipeId(id);
 
-  // let recipeItem = document.createElement('div');
-  //
-  // recipeItem.setAttribute('class', 'recipe__list__item');
-  // recipeItemHtml(id, name, img, description, ingredients);
-  // recipeItem.innerHTML = recipeItemHtml(id, img, name, description, ingredients);
-  // // recipeWrapper.prepend(recipeItem);
-  // recipeWrapper.appendChild(recipeItem);
-
   return item;
 }
 
@@ -348,6 +339,7 @@ createRecipe.onclick = function (e) {
   e.preventDefault();
   let arr = {};
   let recipeEditStatus = e.target.classList.contains('recipe__edit__button');
+  let data = document.querySelector('.recipe__list__item__data');
   let name = document.querySelector('#name-recipe-add');
   let description = document.querySelector('#description-recipe-add');
   let imageInput = document.querySelector('#img-recipe-add');
@@ -400,7 +392,12 @@ createRecipe.onclick = function (e) {
         ingredientsList.push(`<div class="recipe__list__item__ingredients__item">${item}</div>`);
       });
       ingredients.innerHTML = ingredientsList;
-
+      console.log(nameVal)
+      console.log(descriptionVal)
+      data.setAttribute('data-name', nameVal)
+      data.setAttribute('data-description', descriptionVal)
+      data.setAttribute('data-img', imgVal)
+      return false;
       if (editRecipeItem) {
         document.querySelector('.recipe__add .form').reset();
         image.setAttribute('src', 'img/empty.jpg');
@@ -442,6 +439,7 @@ function openModalRecipeItem() {
   document.querySelectorAll('.recipe__list__item__title').forEach((item) => {
     item.onclick = function (e) {
       e.preventDefault();
+      console.log(e.target.tagName);
       if(e.target.tagName !== 'BUTTON'){
 
         document.querySelector('.modal__title__text h2').innerHTML = e.target.innerHTML;
@@ -455,7 +453,7 @@ function openModalRecipeItem() {
         let name = document.querySelector('.form__content__title h2');
         let img = document.querySelector('.form__content__img img');
         let description = document.querySelector('.form__content__description p');
-        let ingredients = document.querySelector('.form__content__ingredients');
+        let ingredients = document.querySelector('.form__content__ingredients ul');
 
         let itemName = itemData.getAttribute('data-name');
         let itemImg = itemData.getAttribute('data-img');
@@ -466,8 +464,14 @@ function openModalRecipeItem() {
         img.setAttribute('src', itemImg);
         description.innerHTML = itemDescription;
 
+        ingredients.querySelectorAll('li').forEach(function (e) {
+          e.remove();
+        });
         itemIngredients.forEach(function (ingredient) {
-          ingredients.append(ingredient);
+          let item = document.createElement("LI");
+          let text = document.createTextNode(ingredient.innerHTML);
+          item.appendChild(text);
+          ingredients.appendChild(item);
         });
       } else {
         return false;

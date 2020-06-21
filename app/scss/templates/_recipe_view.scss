@@ -47,7 +47,7 @@
     }
     .form__content__ingredients{
       counter-reset: list 0;
-      .recipe__list__item__ingredients__item:before {
+      li:before {
         counter-increment: list;
         content: counter(list) ". ";
       }
