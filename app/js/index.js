@@ -227,12 +227,13 @@ function closeModal(item) {
   document.querySelectorAll(item).forEach(function (button) {
     button.onclick = function () {
       let name = document.querySelector('#name-recipe-add');
-      let img = document.querySelector('.recipe__add img');
+      let img = document.querySelector('.form__input__img img');
       let description = document.querySelector('#description-recipe-add');
       let ingredients = document.querySelectorAll('.ingredients__item');
 
       setTimeout(function () {
         name.value = '';
+        console.log(img);
         img.setAttribute('src', 'img/empty.jpg');
         description.value = '';
         ingredients.forEach(function (ingredient) {
@@ -246,37 +247,6 @@ function closeModal(item) {
     };
   })
 }
-
-// if (!localStorage.getItem(storageName)) {
-//   console.log('file');
-//   document.body.onload = function () {
-//     loadRecipes(data);
-//     index = data.length;
-//     recipeJson = JSON.stringify(recipeList);
-//     localStorage.setItem(storageName, recipeJson);
-//     masonry();
-//   };
-// } else {
-//   let localStorageJson = localStorage.getItem(storageName);
-//   let localStorageList = JSON.parse(localStorageJson);
-//   let localStorageListLength = localStorageList.length;
-//
-//   if (localStorageListLength > data.length) {
-//     console.log('local');
-//     document.body.onload = function () {
-//       index = localStorageListLength;
-//       loadRecipes(localStorageList);
-//       masonry();
-//     };
-//   } else {
-//     console.log('file');
-//     document.body.onload = function () {
-//       index = data.length;
-//       loadRecipes(data);
-//       masonry();
-//     };
-//   }
-// }
 
 function createRecipeItem(getRecipe) {
 
@@ -339,13 +309,10 @@ createRecipe.onclick = function (e) {
   e.preventDefault();
   let arr = {};
   let recipeEditStatus = e.target.classList.contains('recipe__edit__button');
-  let item = buttonEdit(this.getAttribute('data-id'));
-  let itemData = item.querySelector('.recipe__list__item__data');
-  let data = document.querySelector('.recipe__list__item__data');
   let name = document.querySelector('#name-recipe-add');
   let description = document.querySelector('#description-recipe-add');
   let imageInput = document.querySelector('#img-recipe-add');
-  let image = document.querySelector('.form__input__img img');
+  let imageForm = document.querySelector('.form__input__img img');
   let ingredients = document.querySelectorAll('.ingredients__item');
   let ingredientsInput = document.querySelectorAll('.ingredients__item input');
   let ingredientsArr = [];
@@ -353,11 +320,11 @@ createRecipe.onclick = function (e) {
   let file = [];
   let reader = new FileReader();
   reader.onload = (e) => {
-    image.setAttribute('src', e.target.result);
+    imageForm.setAttribute('src', e.target.result);
     file.push(e.target.result);
     reader.readAsDataURL(imageInput.files[0]);
   };
-  let imgVal = (image.getAttribute('src') !== '') ? image.getAttribute('src') : 'img/recipe/img_1.png';
+  let imgVal = (imageForm.getAttribute('src') !== '') ? imageForm.getAttribute('src') : 'img/recipe/img_1.png';
 
   ingredientsInput.forEach(function (item, index) {
     ingredientsArr.push(item.value);
@@ -367,9 +334,8 @@ createRecipe.onclick = function (e) {
 
   if (nameVal !== null && descriptionVal !== null) {
     if (recipeEditStatus) {
-
-      // recipeJson = JSON.stringify(recipeList);
-      // localStorage.setItem(storageName, recipeJson);
+      let item = buttonEdit(this.getAttribute('data-id'));
+      let itemData = item.querySelector('.recipe__list__item__data');
 
       let id = e.target.getAttribute('data-id');
       arr = {'id': id, 'name': nameVal, 'img': imgVal, 'description': descriptionVal, 'ingredients': ingredientsArr};
@@ -397,18 +363,18 @@ createRecipe.onclick = function (e) {
       itemData.setAttribute('data-name', nameVal)
       itemData.setAttribute('data-description', descriptionVal)
       itemData.setAttribute('data-img', imgVal)
-      console.log(itemData)
-      console.log(itemData.getAttribute('data-name'))
-      console.log(itemData.getAttribute('data-description'))
       // return false;
       if (editRecipeItem) {
-        document.querySelector('.recipe__add .form').reset();
-        image.setAttribute('src', 'img/empty.jpg');
-        body.classList.remove('modal_active');
-
-        recipeItem.querySelectorAll('.ingredients__item').forEach(function (item) {
-          item.remove();
-        });
+        setTimeout(function () {
+          document.querySelector('.recipe__add .form').reset();
+          recipeItem.querySelectorAll('.ingredients__item').forEach(function (item) {
+            item.remove();
+          });
+          imageForm.setAttribute('src', 'img/empty.jpg');
+          imageInput.value = '';
+          body.classList.remove('modal_active');
+          removeRecipeItem();
+        }, animationTransition);
       }
 
     } else {
@@ -422,15 +388,17 @@ createRecipe.onclick = function (e) {
       recipe = new Recipe(arr);
       createRecipeItem(recipe.getRecipe());
       if (createRecipeItem) {
-        document.querySelector('.recipe__add .form').reset();
-        ingredients.forEach(function (item) {
-          item.remove();
-        });
-        image.setAttribute('src', 'img/empty.jpg');
-        imageInput.value = '';
-        body.classList.remove('modal_active');
-        masonry();
-        removeRecipeItem();
+        setTimeout(function () {
+          document.querySelector('.recipe__add .form').reset();
+          ingredients.forEach(function (item) {
+            item.remove();
+          });
+          imageForm.setAttribute('src', 'img/empty.jpg');
+          imageInput.value = '';
+          body.classList.remove('modal_active');
+          masonry();
+          removeRecipeItem();
+        }, animationTransition);
       }
     }
     return true;
@@ -525,6 +493,10 @@ function editModalRecipeItem() {
       console.log(itemData)
       console.log(itemData.getAttribute('data-name'))
       console.log(itemData.getAttribute('data-description'))
+      itemIngredients.forEach(function (item) {
+        item.remove();
+        console.log(item);
+      });
     };
   });
 }
@@ -603,6 +575,14 @@ document.querySelector('.header__button button').onclick = function () {
   document.querySelector('.modal__title__text h2').innerHTML = addTitleText;
   createRecipe.innerHTML = addButtonText;
   createRecipe.classList.remove('recipe__edit__button');
+  let ingredients = document.querySelectorAll('.ingredients__item');
+  let input = document.querySelectorAll('.valid');
+  ingredients.forEach(function (item) {
+    item.remove();
+  });
+  input.forEach(function (item) {
+    item.classList.remove('valid');
+  });
 };
 
 closeModal('.recipe__modal__close');
