@@ -44,6 +44,8 @@
     transform: translateY(100%);
     transition: transform .4s ease-in-out;
     .modal__title__text{
+      flex: 1 1;
+      padding-right: 10px;
       h2{
         font-size: $fontSizeBig;
         color: $color-black;

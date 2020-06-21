@@ -74,6 +74,8 @@ let addButtonText = 'Add';
 let editTitleText = 'Edit recipe';
 let editButtonText = 'Save';
 
+let viewTitleText = 'View recipe';
+
 //General functions
 
 function toggleClass(item, name) {
@@ -229,19 +231,17 @@ function closeModal(item) {
       let name = document.querySelector('#name-recipe-add');
       let img = document.querySelector('.form__input__img img');
       let description = document.querySelector('#description-recipe-add');
-      let ingredients = document.querySelectorAll('.ingredients__item');
+      let ingredients = document.querySelectorAll('.recipe__add .ingredients__item');
 
       setTimeout(function () {
         name.value = '';
-        console.log(img);
         img.setAttribute('src', 'img/empty.jpg');
         description.value = '';
         ingredients.forEach(function (ingredient) {
           ingredient.remove();
         });
-      }, animationTransition);
-      setTimeout(function () {
         modal.classList.remove('recipe__view');
+        modal.classList.remove('recipe__add');
       }, animationTransition);
       body.classList.remove('modal_active');
     };
@@ -326,7 +326,7 @@ createRecipe.onclick = function (e) {
   };
   let imgVal = (imageForm.getAttribute('src') !== '') ? imageForm.getAttribute('src') : 'img/recipe/img_1.png';
 
-  ingredientsInput.forEach(function (item, index) {
+  ingredientsInput.forEach(function (item) {
     ingredientsArr.push(item.value);
   });
 
@@ -360,13 +360,12 @@ createRecipe.onclick = function (e) {
         ingredientsList.push(`<div class="recipe__list__item__ingredients__item">${item}</div>`);
       });
       ingredients.innerHTML = ingredientsList;
-      itemData.setAttribute('data-name', nameVal)
-      itemData.setAttribute('data-description', descriptionVal)
-      itemData.setAttribute('data-img', imgVal)
-      // return false;
+      itemData.setAttribute('data-name', nameVal);
+      itemData.setAttribute('data-description', descriptionVal);
+      itemData.setAttribute('data-img', imgVal);
       if (editRecipeItem) {
         setTimeout(function () {
-          document.querySelector('.recipe__add .form').reset();
+          document.querySelector('.recipe__modal .form').reset();
           recipeItem.querySelectorAll('.ingredients__item').forEach(function (item) {
             item.remove();
           });
@@ -389,7 +388,7 @@ createRecipe.onclick = function (e) {
       createRecipeItem(recipe.getRecipe());
       if (createRecipeItem) {
         setTimeout(function () {
-          document.querySelector('.recipe__add .form').reset();
+          document.querySelector('.recipe__modal .form').reset();
           ingredients.forEach(function (item) {
             item.remove();
           });
@@ -410,10 +409,8 @@ function openModalRecipeItem() {
   document.querySelectorAll('.recipe__list__item__title').forEach((item) => {
     item.onclick = function (e) {
       e.preventDefault();
-      console.log(e.target.tagName);
       if(e.target.tagName !== 'BUTTON'){
-
-        document.querySelector('.modal__title__text h2').innerHTML = e.target.innerHTML;
+        document.querySelector('.modal__title__text h2').innerHTML = viewTitleText;
         createRecipe.innerHTML = editButtonText;
         modal.classList.add('recipe__view');
 
@@ -490,13 +487,11 @@ function editModalRecipeItem() {
       ingredientActions(ingredientEdit, ingredientRemove);
       inputValid('input[type="text"]');
       inputValid('textarea');
-      console.log(itemData)
-      console.log(itemData.getAttribute('data-name'))
-      console.log(itemData.getAttribute('data-description'))
-      itemIngredients.forEach(function (item) {
-        item.remove();
-        console.log(item);
-      });
+      //checkpoint
+      // itemIngredients.forEach(function (item) {
+      //   item.remove();
+      //   console.log(item);
+      // });
     };
   });
 }
@@ -572,10 +567,11 @@ ingredientAdd.onclick = function (e) {
 
 document.querySelector('.header__button button').onclick = function () {
   toggleClass(body, 'modal_active');
+  toggleClass(modal, 'recipe__add');
   document.querySelector('.modal__title__text h2').innerHTML = addTitleText;
   createRecipe.innerHTML = addButtonText;
   createRecipe.classList.remove('recipe__edit__button');
-  let ingredients = document.querySelectorAll('.ingredients__item');
+  let ingredients = document.querySelectorAll('.recipe__add .ingredients__item');
   let input = document.querySelectorAll('.valid');
   ingredients.forEach(function (item) {
     item.remove();
