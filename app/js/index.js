@@ -339,6 +339,8 @@ createRecipe.onclick = function (e) {
   e.preventDefault();
   let arr = {};
   let recipeEditStatus = e.target.classList.contains('recipe__edit__button');
+  let item = buttonEdit(this.getAttribute('data-id'));
+  let itemData = item.querySelector('.recipe__list__item__data');
   let data = document.querySelector('.recipe__list__item__data');
   let name = document.querySelector('#name-recipe-add');
   let description = document.querySelector('#description-recipe-add');
@@ -392,12 +394,13 @@ createRecipe.onclick = function (e) {
         ingredientsList.push(`<div class="recipe__list__item__ingredients__item">${item}</div>`);
       });
       ingredients.innerHTML = ingredientsList;
-      console.log(nameVal)
-      console.log(descriptionVal)
-      data.setAttribute('data-name', nameVal)
-      data.setAttribute('data-description', descriptionVal)
-      data.setAttribute('data-img', imgVal)
-      return false;
+      itemData.setAttribute('data-name', nameVal)
+      itemData.setAttribute('data-description', descriptionVal)
+      itemData.setAttribute('data-img', imgVal)
+      console.log(itemData)
+      console.log(itemData.getAttribute('data-name'))
+      console.log(itemData.getAttribute('data-description'))
+      // return false;
       if (editRecipeItem) {
         document.querySelector('.recipe__add .form').reset();
         image.setAttribute('src', 'img/empty.jpg');
@@ -519,6 +522,9 @@ function editModalRecipeItem() {
       ingredientActions(ingredientEdit, ingredientRemove);
       inputValid('input[type="text"]');
       inputValid('textarea');
+      console.log(itemData)
+      console.log(itemData.getAttribute('data-name'))
+      console.log(itemData.getAttribute('data-description'))
     };
   });
 }
