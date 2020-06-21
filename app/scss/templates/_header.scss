@@ -1,0 +1,66 @@
+.header {
+  position: relative;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-purple;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+  border-bottom: 2px solid $color-purple;
+  transition: border .4s ease-in-out;
+  &.scroll {
+    padding: 10px 15px;
+
+    h1 {
+      font-size: $fontSizeMedium;
+    }
+
+    .header__button {
+      button {
+        font-size: 16px;
+      }
+    }
+  }
+  .wrapper{
+    flex-wrap: nowrap;
+  }
+  h1 {
+    transition: font .4s ease-in-out;
+  }
+  .modal__title{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    background-color: $color-white;
+    transform: translateY(100%);
+    transition: transform .4s ease-in-out;
+    .modal__title__text{
+      h2{
+        font-size: $fontSizeBig;
+        color: $color-black;
+        font-weight: bold;
+      }
+    }
+    .general__button{
+      button{
+        color: $color-purple;
+        border-color: $color-purple;
+        &:hover{
+          color: $color-white;
+        }
+        &:before{
+          background-color: $color-purple;
+        }
+      }
+    }
+  }
+}
