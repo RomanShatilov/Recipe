@@ -25,7 +25,7 @@ data = [
     "id": 1,
     "name": "Hot or Cold Vegetable Frittata",
     "description": "Not your typical zucchini quiche. This fantastic medley of fresh veggies may be served either hot or cold. You can even cut it into small pieces and serve as finger food!",
-    "img": "../img/recipe/img_1.png",
+    "img": "img/recipe/img_1.png",
     "ingredients": [
       "3 tablespoons vegetable oil",
       "1 ½ cups chopped zucchini",
@@ -37,7 +37,7 @@ data = [
     "id": 2,
     "name": "Bacon and Egg Doughnuts",
     "description": "I've always wanted to try making some kind of sweet/savory bacon-studded fritter using pate a choux, also known as that stuff you make cream puffs with. I went full breakfast theme, and topped mine with a little maple syrup, but feel free to get your beignet on, and cover them with a pile of powdered sugar.",
-    "img": "../img/recipe/img_4.png",
+    "img": "img/recipe/img_4.png",
     "ingredients": [
       "1 cup cold water",
       "2 tablespoons cold water",
@@ -52,7 +52,7 @@ data = [
     "id": 3,
     "name": "Easy Shakshuka",
     "description": "This is a slightly modified version of a popular Middle Eastern breakfast dish. I love this recipe because it is easy, healthy, and satisfying. You can also make this with fresh tomato and jalapeno, but I like to use the canned version so I can make it whenever I want with ingredients from my pantry.",
-    "img": "../img/recipe/img_3.png",
+    "img": "img/recipe/img_3.png",
     "ingredients": [
       "1 tablespoon olive oil",
       "2 cloves garlic, minced",
