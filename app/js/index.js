@@ -371,9 +371,9 @@ createRecipe.onclick = function (e) {
           });
           imageForm.setAttribute('src', 'img/empty.jpg');
           imageInput.value = '';
-          body.classList.remove('modal_active');
-          removeRecipeItem();
         }, animationTransition);
+        body.classList.remove('modal_active');
+        removeRecipeItem();
       }
 
     } else {
@@ -394,10 +394,10 @@ createRecipe.onclick = function (e) {
           });
           imageForm.setAttribute('src', 'img/empty.jpg');
           imageInput.value = '';
-          body.classList.remove('modal_active');
-          masonry();
-          removeRecipeItem();
         }, animationTransition);
+        body.classList.remove('modal_active');
+        masonry();
+        removeRecipeItem();
       }
     }
     return true;
