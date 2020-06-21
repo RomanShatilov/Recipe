@@ -67,14 +67,13 @@ data = [
 ];
 
 //Texts
-
-let addTitleText = 'Add new recipe';
-let addButtonText = 'Add';
-
-let editTitleText = 'Edit recipe';
-let editButtonText = 'Save';
-
-let viewTitleText = 'View recipe';
+let text = {
+  addTitle: "Add new recipe",
+  addButton: "Add",
+  editTitle: "Edit recipe",
+  editButton: "Save",
+  viewTitle: "View recipe",
+};
 
 //General functions
 
@@ -136,19 +135,6 @@ function inputValid(input) {
     }
   });
   return null;
-}
-
-//Recipe start
-function createCORSRequest(method, url){
-    let rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open(method, url, false);
-    rawFile.onreadystatechange = function () {
-      if (rawFile.readyState === 4 && rawFile.status == "200") {
-        rawFile.responseText
-      }
-    };
-  return rawFile;
 }
 
 function recipeItemHtml(id, img, name, description, ingredients) {
@@ -228,9 +214,9 @@ function loadRecipes(getRecipes) {
 function closeModal(item) {
   document.querySelectorAll(item).forEach(function (button) {
     button.onclick = function () {
-      let name = document.querySelector('#name-recipe-add');
+      let name = document.getElementById('name-recipe-add');
       let img = document.querySelector('.form__input__img img');
-      let description = document.querySelector('#description-recipe-add');
+      let description = document.getElementById('description-recipe-add');
       let ingredients = document.querySelectorAll('.recipe__add .ingredients__item');
 
       setTimeout(function () {
@@ -309,9 +295,9 @@ createRecipe.onclick = function (e) {
   e.preventDefault();
   let arr = {};
   let recipeEditStatus = e.target.classList.contains('recipe__edit__button');
-  let name = document.querySelector('#name-recipe-add');
-  let description = document.querySelector('#description-recipe-add');
-  let imageInput = document.querySelector('#img-recipe-add');
+  let name = document.getElementById('name-recipe-add');
+  let description = document.getElementById('description-recipe-add');
+  let imageInput = document.getElementById('img-recipe-add');
   let imageForm = document.querySelector('.form__input__img img');
   let ingredients = document.querySelectorAll('.ingredients__item');
   let ingredientsInput = document.querySelectorAll('.ingredients__item input');
@@ -410,8 +396,8 @@ function openModalRecipeItem() {
     item.onclick = function (e) {
       e.preventDefault();
       if(e.target.tagName !== 'BUTTON'){
-        document.querySelector('.modal__title__text h2').innerHTML = viewTitleText;
-        createRecipe.innerHTML = editButtonText;
+        document.querySelector('.modal__title__text h2').innerHTML = text.viewTitle;
+        createRecipe.innerHTML = text.editButton;
         modal.classList.add('recipe__view');
 
         body.classList.add('modal_active');
@@ -453,8 +439,8 @@ function editModalRecipeItem() {
     item.onclick = function (e) {
       e.preventDefault();
 
-      document.querySelector('.modal__title__text h2').innerHTML = editTitleText;
-      createRecipe.innerHTML = editButtonText;
+      document.querySelector('.modal__title__text h2').innerHTML = text.editTitle;
+      createRecipe.innerHTML = text.editButton;
       createRecipe.classList.add('recipe__edit__button');
       createRecipe.setAttribute('data-id', this.getAttribute('data-id'));
 
@@ -465,9 +451,9 @@ function editModalRecipeItem() {
 
       let item = buttonEdit(this.getAttribute('data-id'));
       let itemData = item.querySelector('.recipe__list__item__data');
-      let name = document.querySelector('#name-recipe-add');
+      let name = document.getElementById('name-recipe-add');
       let img = document.querySelector('.form__input__img img');
-      let description = document.querySelector('#description-recipe-add');
+      let description = document.getElementById('description-recipe-add');
       let ingredientsList = document.querySelectorAll('.ingredients__item');
 
       let itemName = itemData.getAttribute('data-name');
@@ -498,7 +484,7 @@ function editModalRecipeItem() {
 
 function addIngredient(item = null) {
   let ingredientsWrapper = document.querySelector('.ingredients');
-  let input = document.querySelector('#ingredient-add');
+  let input = document.getElementById('ingredient-add');
   let ingredientItem = document.createElement('div');
   let inputVal = (item) ? item : input.value;
 
@@ -568,8 +554,8 @@ ingredientAdd.onclick = function (e) {
 document.querySelector('.header__button button').onclick = function () {
   toggleClass(body, 'modal_active');
   toggleClass(modal, 'recipe__add');
-  document.querySelector('.modal__title__text h2').innerHTML = addTitleText;
-  createRecipe.innerHTML = addButtonText;
+  document.querySelector('.modal__title__text h2').innerHTML = text.addtitle;
+  createRecipe.innerHTML = text.addButton;
   createRecipe.classList.remove('recipe__edit__button');
   let ingredients = document.querySelectorAll('.recipe__add .ingredients__item');
   let input = document.querySelectorAll('.valid');
