@@ -7,8 +7,8 @@ body
 		main.main
 			.container
 				.recipe__list
-					mixin recipeItem(name, counter)
-						.recipe__list__item(class= counter)#recipe-22
+					mixin recipeItem(name, id)
+						.recipe__list__item.pne
 							.recipe__list__item__inner
 								.recipe__list__item__bg
 								.recipe__list__item__wrapper
@@ -18,7 +18,7 @@ body
 										.recipe__list__item__title__buttons
 											.recipe__list__item__title__buttons__edit
 												button Edit
-											.recipe__list__item__title__buttons__remove#22
+											.recipe__list__item__title__buttons__remove
 												button Remove
 									.recipe__list__item__content
 										h2= name
@@ -26,32 +26,41 @@ body
 											li text
 											li text
 											li text
-			.recipe__edit
-				.recipe__edit__wrapper
-			.recipe__add
+			.recipe__modal.recipe__add
 				.container
-					.recipe__add__wrapper
-						.title
-							.title__text
-								h2 Add new recipe
-							.general__button
-								button Close
+					.recipe__modal__wrapper
 						form.form
-							.form__input__img
-								label
-									span Choose an image
-									img(src="img/empty.jpg" alt="Choose image")
-									input(type="file" name="image")
-							.form__inputs
-								.form__input
-									input#name(type="text" name="name")
-									label(for="name") Name
-								.form__input
-									textarea#description(name="description")
-									label(for="description") Description
-								.ingredients
+							.form__content
+								.form__content__img
+									img(src="img/empty.jpg" alt="Recipe Img")
+								.form__content__description
+									.form__content__title
+										h2
+									.form__content__description
+										p
+									.form__content__ingredients__title
+										h3 Ingredients
+									.form__content__ingredients
+							.form__wrapper
+								.form__input__img
+									label
+										span Choose an image
+										img(src="img/empty.jpg" alt="Choose image")
+										input#img-recipe-add(type="file" name="image")
+								.form__inputs
 									.form__input
-										input#ingredients__add(type="text" name="ingredients__add")
-										label(for="ingredients__add") Add new ingredient
-										button.ingredient__button.ingredients__add Add
+										input#name-recipe-add(type="text" name="name")
+										label(for="name-recipe-add") Name
+									.form__input
+										textarea#description-recipe-add(name="description")
+										label(for="description-recipe-add") Description
+									.ingredients
+										.form__input
+											input#ingredient-add(type="text" name="ingredients")
+											label(for="ingredient-add") Add new ingredient
+											button.ingredient__button.ingredient-add Add
+								.general__button.recipe__add__button
+									button(type="submit") Add
 		include includes/footer
+	script(src="js/Recipe.js")
+	script(src="js/index.js")

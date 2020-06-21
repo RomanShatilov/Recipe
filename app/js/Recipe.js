@@ -1,34 +1,40 @@
 class Recipe {
 
-  constructor(id, status, title, description) {
+  constructor({id, name, img, description, ingredients} = {}) {
     this.id = id;
-    this.status = status;
-    this.title = title;
+    this.name = name;
+    this.img = img;
     this.description = description;
+    this.ingredients = ingredients;
   }
 
-  getRecipeFile(file, callback) {
-    let rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function () {
-      if (rawFile.readyState === 4 && rawFile.status == "200") {
-        callback(rawFile.responseText);
-      }
-    };
-    rawFile.send(null);
-  }
+  // getRecipeFile(file) {
+  //   let rawFile = new XMLHttpRequest();
+  //   rawFile.overrideMimeType("application/json");
+  //   rawFile.open("GET", file, false);
+  //   rawFile.onreadystatechange = function () {
+  //     if (rawFile.readyState === 4 && rawFile.status == "200") {
+  //       rawFile.responseText
+  //     }
+  //   };
+  //   return rawFile;
+  // }
 
   getRecipe(){
-    return [this.id, this.status, this.title, this.description];
+    return [this.id, this.name, this.img, this.description, this.ingredients];
   }
 
-  getRecipeById(id){
+  getRecipeId(id){
     return document.getElementById(id);
   }
 
+  editRecipe(id){
+    let RecipeId = this.getRecipeId(id);
+    return RecipeId;
+  }
+
   removeRecipe(id){
-    let RecipeId = this.getRecipeById(id);
-    RecipeId.remove();
+    let RecipeId = this.getRecipeId(id);
+    RecipeId.parentElement.remove();
   }
 }

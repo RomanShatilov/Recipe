@@ -1,17 +1,4 @@
-/* Fonts:
-   https://github.com/vedees/webpack-template/blob/master/README.md#import-js-files
-   ========================================================================== */
-
 @import "mixins";
-
-/*
-  Сhoose one of the ways:
-    1. handle menthod,
-    2. use mixin;
-*/
-
-// 1. Example handle menthod (without mixin):
-
 /*
   // Base Helvetica (example):
   @font-face {
@@ -23,10 +10,6 @@
          url('/assets/fonts/Helvetica/Base/Helvetica-Base.svg') format('svg'); // Legacy iOS
   }
 */
-
-// 2. Example with mixin (example):
-// NOTE: do NOT use expansion (.woff, .svg etc) for path! Path will be '/assets/fonts/OpenSans/opensans';
-// NOTE-2: files required: `.woff, .woffs` (by default) OR `eot. .woff, .woffs, .svg, .ttf` if you use another mixin;
 
 // Base OpenSans:
 // @include font-face("OpenSans", "/assets/fonts/OpenSans/opensans");

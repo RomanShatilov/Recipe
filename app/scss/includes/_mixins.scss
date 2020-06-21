@@ -1,5 +1,4 @@
-/* Mixins:
-   ========================================================================== */
+// Mixins:
 
 // px to rem
 @function rem($pixels, $context: $mainFontSize) {
@@ -33,10 +32,6 @@
     @content;
   }
 }
-
-/* Fonts Helpers:
-   Read more: https://github.com/vedees/webpack-template/blob/master/README.md#add-fonts
-   ========================================================================== */
 
 /*
   By default template support only modern format fonts

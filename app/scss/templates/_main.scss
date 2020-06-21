@@ -19,16 +19,29 @@ body {
     overflow: hidden;
     .header .wrapper,
     .page_wrapper{
-      padding-right: $scrollWidth;
+      //padding-right: $scrollWidth;
     }
     .recipe__add{
       right: 8px;
     }
+    .modal__title{
+      transform: translateY(0);
+    }
+    .recipe__modal {
+      opacity: 1;
+      visibility: visible;
+
+      .form {
+        transform: translateX(0);
+      }
+    }
   }
 }
 
-h1 {
+h1, h2, h3{
   font-weight: bold;
+}
+h1 {
   font-size: $fontSizeBig;
   color: rgba(255, 255, 255, 1);
 }
@@ -37,11 +50,15 @@ h2 {
   font-size: $fontSizeMedium;
 }
 
+h3 {
+  font-size: $fontSizePreMedium;
+}
+
 p {
   line-height: 1.4;
 }
 
-.page__wrapper {
+.page_wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -54,13 +71,14 @@ p {
   z-index: 1;
   width: 100%;
   color: $color-white;
-  margin-top: 75px;
+  flex: 1 1;
 }
 
 .container {
-  max-width: 1600px;
-  padding: 0px 15px;
   width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  padding: 0 15px;
   margin: 0 auto;
 }
 
@@ -78,7 +96,7 @@ p {
     position: relative;
     z-index: 1;
     font-weight: bold;
-    font-size: 18px;
+    font-size: $fontSizeSmall;
     cursor: pointer;
     padding: 10px 30px;
     overflow: hidden;
@@ -109,43 +127,3 @@ p {
   }
 }
 
-.title{
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  max-width: 60vw;
-  min-width: 320px;
-  padding: 15px 0 15px 15px;
-  background-color: $color-white;
-  border-bottom: 2px solid $color-purple;
-  &:before{
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: -100vw;
-    height: 100%;
-    width: 100vw;
-    background-color: $color-white;
-  }
-  .title__text{
-    h2{
-      color: $color-black;
-      font-weight: bold;
-    }
-  }
-  .general__button{
-    button{
-      color: $color-purple;
-      border-color: $color-purple;
-      &:hover{
-        color: $color-white;
-      }
-      &:before{
-        background-color: $color-purple;
-      }
-    }
-  }
-}

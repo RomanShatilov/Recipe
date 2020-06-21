@@ -126,22 +126,29 @@ gulp.task('img', async function() {
 });
 
 
-gulp.task('build', gulp.series('img', 'sass', 'jade', 'css-libs', 'js-libs'), async function() {
+gulp.task('build', gulp.series('sass', 'jade', 'css-libs', 'js-libs'), async function() {
+  return (
+    gulp.src('app/css/**/*.css')
+      .pipe(gulp.dest('dist/css')),
 
-	gulp.src('app/css/**/*.css')
-			.pipe(gulp.dest('dist/css'));
+      gulp.src('app/fonts/**/*')
+        .pipe(gulp.dest('dist/fonts')),
 
-	gulp.src('app/fonts/**/*')
-			.pipe(gulp.dest('dist/fonts'));
+      gulp.src('app/js/index.js')
+        .pipe(babel({
+          presets: ['@babel/env']
+        }))
+        .pipe(gulp.dest('dist')),
 
-	gulp.src('app/js/index.js')
-		.pipe(babel({
-			presets: ['@babel/env']
-		}))
-		.pipe(gulp.dest('dist'));
+      gulp.src('app/json/*.json')
+        .pipe(gulp.dest('dist')),
 
-	gulp.src('app/*.html')
-			.pipe(gulp.dest('dist'));
+      gulp.src('app/img/**/*')
+        .pipe(gulp.dest('dist/img')),
+
+      gulp.src('app/*.html')
+        .pipe(gulp.dest('dist'))
+  );
 
 });
 
